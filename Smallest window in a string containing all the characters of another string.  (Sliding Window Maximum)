@@ -1,0 +1,58 @@
+
+class Solution
+{
+    //Function to find the smallest window in the string s consisting
+    //of all the characters of string p.
+    public static String smallestWindow(String s, String p)
+    {
+        // Your code here
+         HashMap<Character,Integer> hm = new HashMap<>();
+        for(int i=0;i<p.length();i++){
+            hm.put(p.charAt(i),hm.getOrDefault(p.charAt(i),0)+1);
+        }
+        
+        int i=0;
+        int j=0;
+        int start = 0;
+        int count = hm.size();
+      
+        int minLen = Integer.MAX_VALUE;
+        while(j<s.length()){
+            char ch = s.charAt(j);
+            if(hm.containsKey(ch)){
+                hm.put(ch,hm.get(ch)-1);
+                if(hm.get(ch)==0){
+                    count--;
+                }
+            }
+            if(count == 0){
+            while(count==0){
+                if(minLen > j-i+1){
+                    minLen = j-i+1;
+                    start = i;
+                }
+            if(hm.containsKey(s.charAt(i))){
+                hm.put(s.charAt(i),hm.get(s.charAt(i))+1);
+                if(hm.get(s.charAt(i)) > 0){
+                    count++;
+                }
+                
+            }
+             i++;   
+
+            }
+            
+            }
+            j++;
+        }
+        if(minLen != Integer.MAX_VALUE)
+            return s.substring(start,minLen+start);
+        else
+            return "-1";
+       }
+}
+  
+ 
+ 
+ TIME COMPLEXITY :- 0(N)
+ SPACE COMPLEXITY :- 0(1)
